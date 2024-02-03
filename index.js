@@ -3,11 +3,12 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
+const bodyParser = require('body-parser');
 const ytdl = require('ytdl-core');
 const PORT = 3000;
 
 app.use(cors());
-
+app.use(bodyParser.json())
 app.get('/', (req, res) => {
     res.send('Hello, Express!');
 });
@@ -21,9 +22,12 @@ app.listen(PORT, () => {
 
 
 app.post('/download', async (req, res) => {
-    const { youtubeVideoUrl } = req.body;
+    const {  url } = req.body;
+
+  
     try {
-        
+        const youtubeVideoUrl = url
+        // Get video info
         const info = await ytdl.getInfo(youtubeVideoUrl);
         const videoFormat = ytdl.chooseFormat(info.formats, { quality: 'highest' });
 
