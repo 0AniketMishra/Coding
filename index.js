@@ -20,11 +20,10 @@ app.listen(PORT, () => {
 });
 
 
-app.get('/download', async (req, res) => {
+app.post('/download', async (req, res) => {
+    const { youtubeVideoUrl } = req.body;
     try {
-        const youtubeVideoUrl = 'https://youtube.com/shorts/Wh4qiEsfDtY?si=tJYgJZsSRj6OSzl_'; // Replace with the actual YouTube video URL
-
-        // Get video info
+        
         const info = await ytdl.getInfo(youtubeVideoUrl);
         const videoFormat = ytdl.chooseFormat(info.formats, { quality: 'highest' });
 
