@@ -40,6 +40,6 @@ app.post('/download', async (req, res) => {
             .pipe(res);
     } catch (error) {
         console.error('Error downloading YouTube video:', error);
-        res.status(500).json({ error: 'Video download failed',error});
+        res.send('Video download failed',error);
     }
 });
